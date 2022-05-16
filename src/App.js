@@ -4,12 +4,14 @@ import { useState } from "react";
 import { ThemeProvider } from "@material-ui/core";
 import useRequestData from "./hooks/useRequestData";
 import { baseURL } from "./constants/url";
+import { BrowserRouter } from "react-router-dom";
+import Router from './routes/Router';
 
 const App = () => {
   const token = localStorage.getItem("token");
   const [loginButton, setLoginButton] = useState(token ? "Logout " : "Login");
   const [currentPage, setCurrentPage] = useState(1);
-  const [posts, getQuestions, isLoading, error] = useRequestData([], `${baseURL}/posts?page=${currentPage}&size=10`);
+  const [questions, getQuestions, isLoading, error] = useRequestData([], `${baseURL}/questions?page=${currentPage}&size=10`);
 
   const changeCurrentPage = (event, number) => {
     setCurrentPage(number);
@@ -18,7 +20,16 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <p>Olá</p>
+      <BrowserRouter>
+        <Router setLoginButton={setLoginButton}
+          currentPage={currentPage}
+          changeCurrentPage={changeCurrentPage}
+          questions={questions}
+          getQuestions={getQuestions}
+          isLoading={isLoading}
+          error={error}
+        />
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
