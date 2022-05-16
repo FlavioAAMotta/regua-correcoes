@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { GlobalStyle } from "./styled-app";
+import theme from "./constants/theme";
+import { useState } from "react";
+import { ThemeProvider } from "@material-ui/core";
+import useRequestData from "./hooks/useRequestData";
+import { baseURL } from "./constants/url";
 
-function App() {
+const App = () => {
+  const token = localStorage.getItem("token");
+  const [loginButton, setLoginButton] = useState(token ? "Logout " : "Login");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [posts, getQuestions, isLoading, error] = useRequestData([], `${baseURL}/posts?page=${currentPage}&size=10`);
+
+  const changeCurrentPage = (event, number) => {
+    setCurrentPage(number);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <p>Olá</p>
+    </ThemeProvider>
+  )
 }
 
 export default App;
