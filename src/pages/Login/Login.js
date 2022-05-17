@@ -17,7 +17,6 @@ export const Login = () => {
 
     return (
         <MainStyle>
-
             <LoginContainer>
                 <h2>Login</h2>
                 <form onSubmit={onSubmitLogin}>
