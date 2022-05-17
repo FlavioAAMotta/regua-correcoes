@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import {Login}  from "../pages/Login/Login";
 import {SignUp}  from "../pages/SignUp";
 import {Main}  from "../pages/Main/Main";
-import {CreateRule}  from "../pages/CreateRule";
+import {CreateRule}  from "../pages/CreateRule/CreateRule";
 import {GetRule}  from "../pages/GetRule";
 
 //import ErrorPage from '../pages/ErrorPage/ErrorPage';
@@ -15,9 +15,9 @@ const Router = ({ setLoginButton, currentPage, changeCurrentPage, questions, get
 
             <Route path="/signup" element={<SignUp/>} />
 
-            <Route path="/" element={<Main/>} />
+            <Route path="/main" element={<Main/>} />
 
-            <Route path="/createRule" element={<CreateRule/>} />
+            <Route path="/" element={<CreateRule/>} />
 
             <Route path="/getRule" element={<GetRule/>} />
 

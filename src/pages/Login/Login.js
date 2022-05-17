@@ -46,7 +46,7 @@ export const Login = () => {
                         color="primary"
                         type="submit"
                         margin="normal"
-                    >Enviar</Button>}
+                    >Login</Button>}
                 </form>
             </LoginContainer>
         </MainStyle>
