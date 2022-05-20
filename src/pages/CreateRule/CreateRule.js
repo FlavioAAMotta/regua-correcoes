@@ -1,6 +1,6 @@
 import React from "react"
 import { MainStyle } from "../../styled-app"
-import { Button } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 import { FormRow } from "./styled";
 import { useState, useEffect } from "react";
 
@@ -11,14 +11,6 @@ export const CreateRule = () => {
     const [ruleName, setRuleName] = useState("")
     const [questions, setQuestions] = useState([])
     const [totalWeight, setTotalWeight] = useState(0)
-
-    // useEffect(() =>{
-    //     const initialWeight = 0
-    //     const updatedTotalWeight = questions.reduce((previousQuestion, currentQuestion)=>
-    //         previousQuestion.weight + currentQuestion.weight,initialWeight
-    //     )
-    //     setTotalWeight(updatedTotalWeight)
-    // },[questions])
 
     const handleNameChange = (event) => {
         setRuleName(event.target.value)
@@ -35,6 +27,23 @@ export const CreateRule = () => {
     const createNewRule = () => {
         !ruleName && alert("Insert a name for your rule")
         ruleName && setNewRule(true) // TODO: Insert Axios logic to insert rule
+    }
+    const removeCurrentRule = (questionToRemove) => {
+        console.log("Remove:",questionToRemove)
+        const questionsNotRemoved = questions.filter((question)=>{
+            return question.text !== questionToRemove.text
+        })
+        console.log("questionsNotRemoved:",questionsNotRemoved)
+        setTotalWeight(Number(totalWeight) - Number(questionToRemove.weight))
+        setQuestions(questionsNotRemoved)
+    }
+
+    const submitRule = () =>{
+        if(questions.length > 0){
+            alert("TODO, enviar ao back")
+        }else{
+            alert("Favor criar ao menos uma questão")
+        }
     }
 
     const createNewQuestion = () => {
@@ -58,8 +67,14 @@ export const CreateRule = () => {
     const mappedQuestions = questions.map((question) => {
         return (
             <FormRow>
-                <input value={question.text} disabled />
-                <input value={question.weight} disabled />
+                <Input value={question.text} disabled />
+                <Input value={question.weight} disabled />
+                <Button
+                        variant="contained"
+                        color="primary"
+                        margin="normal"
+                        onClick={() => { removeCurrentRule(question); }}
+                    >-</Button>
             </FormRow>
         )
     })
@@ -69,7 +84,7 @@ export const CreateRule = () => {
             <h2>Here you can create your check rule</h2>
             <form>
                 <FormRow>
-                    <input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} />
+                    <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} />
                     <Button
                         variant="contained"
                         color="primary"
@@ -91,6 +106,14 @@ export const CreateRule = () => {
                 </FormRow>}
                 {newRule && mappedQuestions}
                 <h3>Total Weight:</h3> {totalWeight}
+                {newRule && <FormRow>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        margin="normal"
+                        onClick={() => { submitRule(); }}
+                    >Submit Rule</Button>
+                </FormRow>}
 
             </form>
         </MainStyle>
