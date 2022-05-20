@@ -1,8 +1,7 @@
 import React from "react"
-import { MainStyle } from "../../styled-app"
 import { Button, Input } from '@material-ui/core';
-import { FormRow } from "./styled";
-import { useState, useEffect } from "react";
+import { FormRow, CreateRuleStyle, Header, Form, FormRule, TotalWeight } from "./styled";
+import { useState } from "react";
 
 export const CreateRule = () => {
     const [newRule, setNewRule] = useState(false)
@@ -80,23 +79,22 @@ export const CreateRule = () => {
     })
 
     return (
-        <MainStyle>
-            <h2>Here you can create your check rule</h2>
-            <form>
-                <FormRow>
-                    <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} />
+        <CreateRuleStyle>
+            <Header>Here you can create your check rule</Header>
+            <Form>
+                <FormRule>
+                    <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} style = {{width: '85%'}}/>
                     <Button
                         variant="contained"
                         color="primary"
                         margin="normal"
                         onClick={() => { createNewRule(); }}
+                        style = {{width: '10%'}}
                     >+</Button>
-                </FormRow>
+                </FormRule>
                 {newRule && <FormRow>
                     <input type="text" placeholder="Question" onChange={handleNewQuestionChange} value={newQuestion} />
                     <input type="number" placeholder="Weight" onChange={handleWeight} value={weight} min="0" max="100" />
-                </FormRow>}
-                {newRule && <FormRow>
                     <Button
                         variant="contained"
                         color="primary"
@@ -105,7 +103,7 @@ export const CreateRule = () => {
                     >+</Button>
                 </FormRow>}
                 {newRule && mappedQuestions}
-                <h3>Total Weight:</h3> {totalWeight}
+                <TotalWeight>Total Weight: {totalWeight}</TotalWeight>
                 {newRule && <FormRow>
                     <Button
                         variant="contained"
@@ -115,7 +113,7 @@ export const CreateRule = () => {
                     >Submit Rule</Button>
                 </FormRow>}
 
-            </form>
-        </MainStyle>
+            </Form>
+        </CreateRuleStyle>
     )
 }
