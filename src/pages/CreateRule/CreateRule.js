@@ -1,15 +1,22 @@
 import React from "react"
 import { Button, Input } from '@material-ui/core';
-import { FormRow, CreateRuleStyle, Header, Form, FormRule, TotalWeight, QuestionInput, RightInput } from "./styled";
+import { Title, HeaderButton, CreateRuleStyle, Header, Form, FormRule, TotalWeight, QuestionInput, RightInput } from "./styled";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {goBack} from "../../routes/coordinator"
 
 export const CreateRule = () => {
+    const navigate = useNavigate()
     const [newRule, setNewRule] = useState(false)
     const [newQuestion, setNewQuestion] = useState("")
     const [weight, setWeight] = useState(0)
     const [ruleName, setRuleName] = useState("")
     const [questions, setQuestions] = useState([])
     const [totalWeight, setTotalWeight] = useState(0)
+    
+    const onBack = (event) => {
+        goBack(navigate)
+    };
 
     const handleNameChange = (event) => {
         setRuleName(event.target.value)
@@ -28,9 +35,8 @@ export const CreateRule = () => {
         ruleName && setNewRule(true) // TODO: Insert Axios logic to insert rule
     }
     const removeCurrentRule = (questionToRemove) => {
-        console.log("Remove:", questionToRemove)
         const questionsNotRemoved = questions.filter((question) => {
-            return question.text !== questionToRemove.text
+            return question.id !== questionToRemove.id
         })
         console.log("questionsNotRemoved:", questionsNotRemoved)
         setTotalWeight(Number(totalWeight) - Number(questionToRemove.weight))
@@ -50,7 +56,8 @@ export const CreateRule = () => {
             const questionCreated = (
                 {
                     text: newQuestion,
-                    weight: weight
+                    weight: weight,
+                    id: Math.random()
                 }
             )
             const updatedQuestions = [...questions, questionCreated]
@@ -65,7 +72,7 @@ export const CreateRule = () => {
 
     const mappedQuestions = questions.map((question) => {
         return (
-            <FormRule>                    
+            <FormRule key={question.id}>                    
                 <QuestionInput value={question.text} disabled />
                 <RightInput>
                 <input type="number" placeholder="Weight" value={question.weight} min="0" max="100" disabled/>
@@ -73,7 +80,7 @@ export const CreateRule = () => {
                         variant="contained"
                         color="primary"
                         margin="normal"
-                        onClick={() => { createNewQuestion(); }}
+                        onClick={() => { removeCurrentRule(question); }}
                     >-</Button>
                 </RightInput>
             </FormRule>
@@ -83,7 +90,15 @@ export const CreateRule = () => {
 
     return (
         <CreateRuleStyle>
-            <Header>Here you can create your check rule</Header>
+            <Header>
+                <HeaderButton>
+                    <Button onClick={() => { onBack() }}>
+                        Go back
+                    </Button>
+                </HeaderButton>
+                <Title>Here you can create your check rule</Title>
+            </Header>
+
             <Form>
                 <FormRule>
                     <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} style={{ width: '85%' }} />

@@ -13,16 +13,10 @@ export const RightInput = styled.div`
     display: flex;
     flex-direction: row;
 `
+
 export const QuestionInput = styled.input`
     width: 100%;
     margin-right: 5px;
-`
-
-export const FormRow = styled.div`
-    display:flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
 `
 
 export const FormRule = styled.div`
@@ -33,8 +27,15 @@ export const FormRule = styled.div`
     justify-content: space-between;
 `
 
-export const Header = styled.h1`
-    margin: 16px;
+export const Title = styled.h1`
+    margin: 8px;
+    align-self: center;
+`
+
+export const Header = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 `
 
 export const Form = styled.form`
@@ -43,6 +44,13 @@ export const Form = styled.form`
     justify-content: space-around;
     align-items: flex-start;
     width: 80%;
+`
+export const HeaderButton = styled.form`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color:#6BB091;
 `
 export const TotalWeight = styled.h3`
     display: flex;

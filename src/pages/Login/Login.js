@@ -4,15 +4,21 @@ import useForm from '../../hooks/useForm'
 import { Button, CircularProgress } from '@material-ui/core';
 import { TextFieldStyled } from "./styled";
 import { MainStyle} from "../../styled-app"
+import {goToMainPage} from "../../routes/coordinator"
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
     const [form, onChange, clear] = useForm({ email: "", password: "" })
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
     const onSubmitLogin = (event) => {
         event.preventDefault();
-        alert("Login feito!")
-        //login(form, clear, setIsLoading);
+        //TODO verify login
+        goToMainPage(navigate)
+    };
+    const onSignup = (event) => {
+        //TODO verify login
     };
 
     return (
@@ -26,7 +32,7 @@ export const Login = () => {
                         name="email"
                         value={form.email}
                         onChange={onChange}
-                        type="email"
+                        type="text"//TODO go back to email when finished
                         margin="normal"
                         required
                     />
@@ -46,9 +52,11 @@ export const Login = () => {
                         color="primary"
                         type="submit"
                         margin="normal"
+                        onClick={() => { onSubmitLogin(); }}
                     >Login</Button>}
                 </form>
             </LoginContainer>
+            {/* TODO: create signup form */}
         </MainStyle>
     )
 }

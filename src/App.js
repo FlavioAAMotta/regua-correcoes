@@ -4,7 +4,6 @@ import { useState } from "react";
 import { ThemeProvider } from "@material-ui/core";
 import useRequestData from "./hooks/useRequestData";
 import { baseURL } from "./constants/url";
-import { BrowserRouter } from "react-router-dom";
 import Router from './routes/Router';
 
 const App = () => {
@@ -20,16 +19,14 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <BrowserRouter>
-        <Router setLoginButton={setLoginButton}
-          currentPage={currentPage}
-          changeCurrentPage={changeCurrentPage}
-          questions={questions}
-          getQuestions={getQuestions}
-          isLoading={isLoading}
-          error={error}
-        />
-      </BrowserRouter>
+      <Router setLoginButton={setLoginButton}
+        currentPage={currentPage}
+        changeCurrentPage={changeCurrentPage}
+        questions={questions}
+        getQuestions={getQuestions}
+        isLoading={isLoading}
+        error={error}
+      />
     </ThemeProvider>
   )
 }
