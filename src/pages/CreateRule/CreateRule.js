@@ -1,12 +1,10 @@
 import React from "react"
 import { Button, Input } from '@material-ui/core';
-import { Title, HeaderButton, CreateRuleStyle, Header, Form, FormRule, TotalWeight, QuestionInput, RightInput } from "./styled";
+import { Title, CreateRuleStyle, Form, FormRule, TotalWeight, QuestionInput, RightInput } from "./styled";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {goBack} from "../../routes/coordinator"
+import { Header } from "../../components/Header/Header"
 
 export const CreateRule = () => {
-    const navigate = useNavigate()
     const [newRule, setNewRule] = useState(false)
     const [newQuestion, setNewQuestion] = useState("")
     const [weight, setWeight] = useState(0)
@@ -14,9 +12,6 @@ export const CreateRule = () => {
     const [questions, setQuestions] = useState([])
     const [totalWeight, setTotalWeight] = useState(0)
     
-    const onBack = (event) => {
-        goBack(navigate)
-    };
 
     const handleNameChange = (event) => {
         setRuleName(event.target.value)
@@ -90,15 +85,8 @@ export const CreateRule = () => {
 
     return (
         <CreateRuleStyle>
-            <Header>
-                <HeaderButton>
-                    <Button onClick={() => { onBack() }}>
-                        Go back
-                    </Button>
-                </HeaderButton>
-                <Title>Here you can create your check rule</Title>
-            </Header>
-
+            <Header/>
+            <Title>Here you can create your check rule</Title>
             <Form>
                 <FormRule>
                     <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} style={{ width: '85%' }} />

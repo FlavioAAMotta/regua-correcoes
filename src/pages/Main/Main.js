@@ -3,7 +3,8 @@ import { Button, CircularProgress } from '@material-ui/core';
 import { MainStyle } from "../../styled-app"
 import { SelectionContainer, ButtonsContainer } from "./styled"
 import { useNavigate } from "react-router-dom";
-import {goToCreateRulePage, goToUseRulePage} from "../../routes/coordinator"
+import { goToCreateRulePage, goToUseRulePage } from "../../routes/coordinator"
+import { Header } from "../../components/Header/Header";
 
 export const Main = () => {
     const navigate = useNavigate()
@@ -17,26 +18,29 @@ export const Main = () => {
     };
 
     return (
-        <MainStyle>
-            <SelectionContainer>
-                <h2>Select one</h2>
-                <ButtonsContainer>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        margin="normal"
-                        onClick={() => { onCreateRule(); }}
-                    >Create Rule</Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        margin="normal"
-                        onClick={() => { onUseRule(); }}
-                    >Use Rule</Button>
-                </ButtonsContainer>
-            </SelectionContainer>
-        </MainStyle>
+        <>
+            <Header />
+            <MainStyle>
+                <SelectionContainer>
+                    <h2>Select one</h2>
+                    <ButtonsContainer>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            margin="normal"
+                            onClick={() => { onCreateRule(); }}
+                        >Create Rule</Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            margin="normal"
+                            onClick={() => { onUseRule(); }}
+                        >Use Rule</Button>
+                    </ButtonsContainer>
+                </SelectionContainer>
+            </MainStyle>
+        </>
     )
 }

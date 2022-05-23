@@ -32,25 +32,12 @@ export const Title = styled.h1`
     align-self: center;
 `
 
-export const Header = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-`
-
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
     width: 80%;
-`
-export const HeaderButton = styled.form`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    background-color:#6BB091;
 `
 export const TotalWeight = styled.h3`
     display: flex;
