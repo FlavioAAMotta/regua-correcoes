@@ -9,9 +9,19 @@ export const CreateRuleStyle = styled.div`
     align-items: center;
 `
 
+export const RightInput = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+export const QuestionInput = styled.input`
+    width: 100%;
+    margin-right: 5px;
+`
+
 export const FormRow = styled.div`
     display:flex;
     flex-direction: row;
+    width: 100%;
     justify-content: space-around;
 `
 

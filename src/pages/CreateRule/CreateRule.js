@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, Input } from '@material-ui/core';
-import { FormRow, CreateRuleStyle, Header, Form, FormRule, TotalWeight } from "./styled";
+import { FormRow, CreateRuleStyle, Header, Form, FormRule, TotalWeight, QuestionInput, RightInput } from "./styled";
 import { useState } from "react";
 
 export const CreateRule = () => {
@@ -28,19 +28,19 @@ export const CreateRule = () => {
         ruleName && setNewRule(true) // TODO: Insert Axios logic to insert rule
     }
     const removeCurrentRule = (questionToRemove) => {
-        console.log("Remove:",questionToRemove)
-        const questionsNotRemoved = questions.filter((question)=>{
+        console.log("Remove:", questionToRemove)
+        const questionsNotRemoved = questions.filter((question) => {
             return question.text !== questionToRemove.text
         })
-        console.log("questionsNotRemoved:",questionsNotRemoved)
+        console.log("questionsNotRemoved:", questionsNotRemoved)
         setTotalWeight(Number(totalWeight) - Number(questionToRemove.weight))
         setQuestions(questionsNotRemoved)
     }
 
-    const submitRule = () =>{
-        if(questions.length > 0){
+    const submitRule = () => {
+        if (questions.length > 0) {
             alert("TODO, enviar ao back")
-        }else{
+        } else {
             alert("Favor criar ao menos uma questão")
         }
     }
@@ -58,23 +58,26 @@ export const CreateRule = () => {
             setQuestions(updatedQuestions)
             setNewQuestion("")
             setWeight(0)
-        }else{
+        } else {
             alert("Please enter the question and its weight")
         }
     }
 
     const mappedQuestions = questions.map((question) => {
         return (
-            <FormRow>
-                <Input value={question.text} disabled />
-                <Input value={question.weight} disabled />
-                <Button
+            <FormRule>                    
+                <QuestionInput value={question.text} disabled />
+                <RightInput>
+                <input type="number" placeholder="Weight" value={question.weight} min="0" max="100" disabled/>
+                    <Button
                         variant="contained"
                         color="primary"
                         margin="normal"
-                        onClick={() => { removeCurrentRule(question); }}
+                        onClick={() => { createNewQuestion(); }}
                     >-</Button>
-            </FormRow>
+                </RightInput>
+            </FormRule>
+            
         )
     })
 
@@ -83,35 +86,42 @@ export const CreateRule = () => {
             <Header>Here you can create your check rule</Header>
             <Form>
                 <FormRule>
-                    <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} style = {{width: '85%'}}/>
-                    <Button
+                    <Input type="text" placeholder="Rule name" onChange={handleNameChange} value={ruleName} style={{ width: '85%' }} />
+                    {newRule ||<Button
                         variant="contained"
                         color="primary"
                         margin="normal"
                         onClick={() => { createNewRule(); }}
-                        style = {{width: '10%'}}
-                    >+</Button>
+                        style={{ width: '10%' }}
+                    >+</Button>}
                 </FormRule>
-                {newRule && <FormRow>
-                    <input type="text" placeholder="Question" onChange={handleNewQuestionChange} value={newQuestion} />
-                    <input type="number" placeholder="Weight" onChange={handleWeight} value={weight} min="0" max="100" />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        margin="normal"
-                        onClick={() => { createNewQuestion(); }}
-                    >+</Button>
-                </FormRow>}
+
+                {newRule &&
+                <FormRule>
+                    <QuestionInput type="text" placeholder="Question" onChange={handleNewQuestionChange} value={newQuestion} />
+                    <RightInput>
+                        <input type="number" placeholder="Weight" onChange={handleWeight} value={weight} min="0" max="100" />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            margin="normal"
+                            onClick={() => { createNewQuestion(); }}
+                        >+</Button>
+                    </RightInput>
+                </FormRule>}
+
                 {newRule && mappedQuestions}
                 <TotalWeight>Total Weight: {totalWeight}</TotalWeight>
-                {newRule && <FormRow>
+
+                {newRule && 
+                <FormRule>
                     <Button
                         variant="contained"
                         color="primary"
                         margin="normal"
                         onClick={() => { submitRule(); }}
                     >Submit Rule</Button>
-                </FormRow>}
+                </FormRule>}
 
             </Form>
         </CreateRuleStyle>
