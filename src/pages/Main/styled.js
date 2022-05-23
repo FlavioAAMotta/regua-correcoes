@@ -19,9 +19,12 @@ export const SelectionContainer = styled.div`
 `
 
 export const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
     Button{ 
         margin: 20px;
-        width: 14vw;
-        height: 10vw;
+        padding: 8px;
+        width: 100%;
     }
 `
